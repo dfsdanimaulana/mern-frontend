@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.min.js'
+
+import Navbar from './components/Navbar'
+import ShowUser from './components/ShowUser'
+import AddUser from './components/AddUser'
+import DeleteUser from './components/DeleteUser'
+import UpdateUser from './components/UpdateUser'
+
+export default class App extends Component {
+    render() {
+        return (
+            <Router>
+                <Navbar />
+                <br />
+                <div className='container'>
+                    <Route path='/' exact component={ShowUser} />
+                    <Route path='/add' component={AddUser} />
+                    <Route path='/delete' component={DeleteUser} />
+                    <Route path='/update' component={UpdateUser} />
+                </div>
+            </Router>
+        )
+    }
 }
-
-export default App;
