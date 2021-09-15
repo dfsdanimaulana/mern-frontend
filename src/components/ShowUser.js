@@ -10,12 +10,23 @@ export default class ShowUser extends Component {
         }
     }
 
-    componentDidMount() {
+    getDataApi = () => {
         axios.get('http://localhost:3003/user').then((res) => {
             this.setState({
                 users: res.data,
             })
         })
+    }
+
+    deleteUser = (id) => {
+        axios.get(`http://localhost:3003/user/${id}`).then((res) => {
+            console.log(res.data)
+            this.getDataApi()
+        })
+    }
+
+    componentDidMount = () => {
+        this.getDataApi()
     }
 
     render() {
@@ -27,6 +38,7 @@ export default class ShowUser extends Component {
                         <th scope='col'>Username</th>
                         <th scope='col'>Email</th>
                         <th scope='col'>Password</th>
+                        <th scope='col'>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,6 +48,13 @@ export default class ShowUser extends Component {
                             <td>{user.username}</td>
                             <td>{user.email}</td>
                             <td>{user.password}</td>
+                            <td>
+                                <button
+                                    className='btn btn-sm btn-info'
+                                    onClick={() => this.deleteUser(user._id)}>
+                                    Delete
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

@@ -1,10 +1,46 @@
+import axios from 'axios'
 import React, { Component } from 'react'
 
 export default class AddUser extends Component {
-   
+    constructor(props) {
+        super(props)
+        this.state = {
+            data: {
+                username: '',
+                email: '',
+                password: '',
+            },
+        }
+    }
+
+    sendDataToAPI = () => {
+        axios
+            .post('http://localhost:3003/user/add', this.state.data)
+            .then((res) => {
+                console.log(res.data)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+
+    handleChange = (event) => {
+        let newData = { ...this.state.data }
+        newData[event.target.name] = event.target.value
+        this.setState({
+            data: newData,
+        })
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault()
+        console.log(this.state.data)
+        this.sendDataToAPI()
+    }
+
     render() {
         return (
-            <form action='http://localhost:3003/user/add' method='POST'>
+            <form onSubmit={this.handleSubmit}>
                 <div className='mb-3'>
                     <label htmlFor='username' className='form-label'>
                         Username
@@ -14,6 +50,7 @@ export default class AddUser extends Component {
                         className='form-control'
                         id='username'
                         name='username'
+                        onChange={this.handleChange}
                     />
                 </div>
                 <div className='mb-3'>
@@ -25,6 +62,7 @@ export default class AddUser extends Component {
                         className='form-control'
                         id='email'
                         name='email'
+                        onChange={this.handleChange}
                     />
                 </div>
                 <div className='mb-3'>
@@ -36,6 +74,7 @@ export default class AddUser extends Component {
                         className='form-control'
                         id='password'
                         name='password'
+                        onChange={this.handleChange}
                     />
                 </div>
                 <div className='mb-3 form-check'>
