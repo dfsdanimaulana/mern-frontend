@@ -31,12 +31,6 @@ export default class Navbar extends Component {
                             <a className='nav-link' href='/add'>
                                 Add User
                             </a>
-                            <a className='nav-link' href='/update'>
-                                Update User
-                            </a>
-                            <a className='nav-link' href='/delete'>
-                                Delete User
-                            </a>
                         </div>
                     </div>
                 </div>

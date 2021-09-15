@@ -13,17 +13,6 @@ export default class AddUser extends Component {
         }
     }
 
-    sendDataToAPI = () => {
-        axios
-            .post('http://localhost:3003/user/add', this.state.data)
-            .then((res) => {
-                console.log(res.data)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-    }
-
     handleChange = (event) => {
         let newData = { ...this.state.data }
         newData[event.target.name] = event.target.value
@@ -34,8 +23,14 @@ export default class AddUser extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        console.log(this.state.data)
-        this.sendDataToAPI()
+        axios
+            .post('http://localhost:3003/user/add', this.state.data)
+            .then((res) => {
+                window.location.href = '/'
+            })
+            .catch((err) => {
+                console.log(err)
+            })
     }
 
     render() {

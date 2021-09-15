@@ -7,7 +7,6 @@ import 'bootstrap/dist/js/bootstrap.min.js'
 import Navbar from './components/Navbar'
 import ShowUser from './components/ShowUser'
 import AddUser from './components/AddUser'
-import DeleteUser from './components/DeleteUser'
 import UpdateUser from './components/UpdateUser'
 
 export default class App extends Component {
@@ -19,7 +18,6 @@ export default class App extends Component {
                 <div className='container'>
                     <Route path='/' exact component={ShowUser} />
                     <Route path='/add' component={AddUser} />
-                    <Route path='/delete' component={DeleteUser} />
                     <Route path='/update' component={UpdateUser} />
                 </div>
             </Router>

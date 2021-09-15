@@ -19,7 +19,7 @@ export default class ShowUser extends Component {
     }
 
     deleteUser = (id) => {
-        axios.get(`http://localhost:3003/user/${id}`).then((res) => {
+        axios.delete(`http://localhost:3003/user/${id}`).then((res) => {
             console.log(res.data)
             this.getDataApi()
         })
@@ -50,9 +50,16 @@ export default class ShowUser extends Component {
                             <td>{user.password}</td>
                             <td>
                                 <button
-                                    className='btn btn-sm btn-info'
+                                    className='btn btn-sm btn-danger me-2'
                                     onClick={() => this.deleteUser(user._id)}>
                                     Delete
+                                </button>
+                                <button
+                                    className='btn btn-sm btn-primary'
+                                    onClick={() =>
+                                        (window.location.href = `/update/${user._id}`)
+                                    }>
+                                    Update
                                 </button>
                             </td>
                         </tr>

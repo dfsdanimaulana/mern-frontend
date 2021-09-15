@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { Component } from 'react'
 
 export default class UpdateUser extends Component {
@@ -6,15 +7,47 @@ export default class UpdateUser extends Component {
 
         this.state = {
             user: {
-                username: 'dnm17',
-                email: 'danimaulana9f@gmail.com',
-                password: '123456',
+                username: '',
+                email: '',
+                password: '',
             },
         }
     }
+
+    getUser = () => {
+        const id = window.location.href.split('/')[4]
+        axios.get(`http://localhost:3003/user/${id}`).then((res) => {
+            if (res.data._id) {
+                this.setState({
+                    user: res.data,
+                })
+            }
+        })
+    }
+
+    handleChange = (event) => {
+        let newUser = { ...this.state.user }
+        newUser[event.target.name] = event.target.value
+
+        this.setState({
+            user: newUser,
+        })
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault()
+        axios.put('http://localhost:3003/user', this.state.user).then((res) => {
+            window.location.href = '/'
+        })
+    }
+
+    componentDidMount = () => {
+        this.getUser()
+    }
+
     render() {
         return (
-            <form>
+            <form onSubmit={this.handleSubmit}>
                 <div className='mb-3'>
                     <label htmlFor='username' className='form-label'>
                         Username
@@ -23,7 +56,9 @@ export default class UpdateUser extends Component {
                         type='text'
                         className='form-control'
                         id='username'
+                        name='username'
                         value={this.state.user.username}
+                        onChange={this.handleChange}
                     />
                 </div>
                 <div className='mb-3'>
@@ -34,7 +69,9 @@ export default class UpdateUser extends Component {
                         type='email'
                         className='form-control'
                         id='email'
+                        name='email'
                         value={this.state.user.email}
+                        onChange={this.handleChange}
                     />
                 </div>
                 <div className='mb-3'>
@@ -45,19 +82,12 @@ export default class UpdateUser extends Component {
                         type='password'
                         className='form-control'
                         id='password'
+                        name='password'
                         value={this.state.user.password}
+                        onChange={this.handleChange}
                     />
                 </div>
-                <div className='mb-3 form-check'>
-                    <input
-                        type='checkbox'
-                        className='form-check-input'
-                        id='exampleCheck1'
-                    />
-                    <label className='form-check-label' htmlFor='exampleCheck1'>
-                        Remember me
-                    </label>
-                </div>
+
                 <button type='submit' className='btn btn-primary'>
                     Update
                 </button>
