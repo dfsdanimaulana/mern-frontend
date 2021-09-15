@@ -2,6 +2,7 @@
   "name": "myapp",
   "version": "0.1.0",
   "private": true,
+  "main":"server.js",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -14,12 +15,17 @@
     "react-scripts": "4.0.3",
     "web-vitals": "^1.0.1"
   },
+  "engines":{
+    "node": "15.9.0",
+    "npm":"7.22.0"
+  },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "commit": "node ./src/utils/commit.js"
+    "commit": "node ./src/utils/commit.js",
+    "heroku-postbuild": "npm install"
   },
   "browserslist": {
     "production": [
