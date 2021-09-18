@@ -24,12 +24,16 @@ export default class AddUser extends Component {
     handleSubmit = (event) => {
         event.preventDefault()
         axios
-            .post('http://localhost:3003/user/add', this.state.data)
+            .post(
+                'https://dan-reactbasic-api.herokuapp.com/user/add',
+                this.state.data
+            )
             .then((res) => {
-                window.location.href = '/'
+                alert('Data berhasil di tambah.')
             })
             .catch((err) => {
                 console.log(err)
+                alert('Data gagal di tambah.')
             })
     }
 

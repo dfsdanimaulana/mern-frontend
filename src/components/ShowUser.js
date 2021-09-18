@@ -11,18 +11,23 @@ export default class ShowUser extends Component {
     }
 
     getDataApi = () => {
-        axios.get('http://localhost:3003/user').then((res) => {
-            this.setState({
-                users: res.data,
+        axios
+            .get('https://dan-reactbasic-api.herokuapp.com/user')
+            .then((res) => {
+                this.setState({
+                    users: res.data,
+                })
             })
-        })
     }
 
     deleteUser = (id) => {
-        axios.delete(`http://localhost:3003/user/${id}`).then((res) => {
-            console.log(res.data)
-            this.getDataApi()
-        })
+        axios
+            .delete(`https://dan-reactbasic-api.herokuapp.com/user/${id}`)
+            .then((res) => {
+                console.log(res.data)
+                alert('Data berhasil di hapus.')
+                this.getDataApi()
+            })
     }
 
     componentDidMount = () => {

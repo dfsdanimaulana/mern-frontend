@@ -16,13 +16,15 @@ export default class UpdateUser extends Component {
 
     getUser = () => {
         const id = window.location.href.split('/')[4]
-        axios.get(`http://localhost:3003/user/${id}`).then((res) => {
-            if (res.data._id) {
-                this.setState({
-                    user: res.data,
-                })
-            }
-        })
+        axios
+            .get(`https://dan-reactbasic-api.herokuapp.com/user/${id}`)
+            .then((res) => {
+                if (res.data._id) {
+                    this.setState({
+                        user: res.data,
+                    })
+                }
+            })
     }
 
     handleChange = (event) => {
@@ -36,9 +38,18 @@ export default class UpdateUser extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault()
-        axios.put('http://localhost:3003/user', this.state.user).then((res) => {
-            window.location.href = '/'
-        })
+        axios
+            .put(
+                'https://dan-reactbasic-api.herokuapp.com/user',
+                this.state.user
+            )
+            .then((res) => {
+                alert('Data berhasil di update.')
+            })
+            .catch((err)=>{
+                console.log(err)
+                alert('Data gagal di update.')
+            })
     }
 
     componentDidMount = () => {
